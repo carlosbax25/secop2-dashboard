@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+*.log
+derby.log
+metastore_db/
+spark-warehouse/
