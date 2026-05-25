@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Storytelling: Alerta de Contratación</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+        .header h3 {
+            color: #64748b;
+            font-weight: 400;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .kpi-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            border-left: 6px solid #3b82f6;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid #f1f5f9;
+            border-right: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .kpi-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64748b;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .kpi-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .kpi-desc {
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .highlight {
+            color: #2563eb;
+            font-weight: 700;
+        }
+        .target-card {
+            background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            grid-column: span 2;
+            box-shadow: 0 15px 35px rgba(29, 78, 216, 0.2);
+        }
+        .target-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #93c5fd;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        .target-entity {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .target-amount {
+            font-size: 1.8rem;
+            color: #bfdbfe;
+            font-weight: 600;
+        }
+        .footer-note {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Alerta de Pluralidad: SECOP II (2024)</h1>
+            <h3>Análisis del déficit de competencia en la adjudicación de recursos públicos</h3>
+        </div>
+        
+        <div class="grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Exposición Financiera</div>
+                <div class="kpi-value">45.8 Billones COP</div>
+                <div class="kpi-desc">Adjudicados a procesos con <span class="highlight">1 o ningún oferente competitivo</span>.</div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-title">Déficit de Competencia</div>
+                <div class="kpi-value">50.2%</div>
+                <div class="kpi-desc">Del presupuesto total analizado se asignó sin garantizar pluralidad de mercado.</div>
+            </div>
+            
+            <div class="kpi-card" style="grid-column: span 2; border-left-color: #60a5fa;">
+                <div class="kpi-title">Mega-Contratista sin Competencia</div>
+                <div class="kpi-value">MARIA SORELY GRISALES / CREACIONES BJ</div>
+                <div class="kpi-desc">Ha recibido <span class="highlight">2.12 Billones COP</span> en procesos con 1 o ningún oferente. Identificar a los mayores receptores de fondos en estos escenarios es vital para mapear posibles monopolios o direccionamientos.</div>
+            </div>
+            
+            <div class="target-card">
+                <div class="target-label">FOCO DE AUDITORÍA PRIORITARIA (ENTIDAD)</div>
+                <div class="target-entity">DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN</div>
+                <div class="target-amount">3.56 Billones COP adjudicados sin pluralidad</div>
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            Este reporte focaliza la exposición de la contratación estatal ante escenarios de bajo concurso. Diseñado para control interno y veeduría especializada.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Análisis de Competitividad SECOP II</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            padding: 40px; 
+            background: #f8fafc; 
+            color: #1e293b; 
+        }
+        
+        .header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        .header h1 { 
+            font-weight: 700; 
+            font-size: 2.2em; 
+            color: #0f172a; 
+            margin: 0; 
+            letter-spacing: -0.5px; 
+        }
+        .header h3 { 
+            font-weight: 400; 
+            color: #475569; 
+            margin-top: 10px; 
+            font-size: 1.2em; 
+        }
+        
+        .grid-context { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            margin-bottom: 40px; 
+        }
+        .card-context { 
+            background: white; 
+            border-radius: 8px; 
+            padding: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            border-top: 4px solid #3b82f6; 
+        }
+        .card-context h4 { 
+            margin-top: 0; 
+            color: #1e40af; 
+            font-size: 1.1em; 
+            font-weight: 700; 
+            margin-bottom: 12px;
+        }
+        .card-context p {
+            font-size: 0.9em;
+            color: #475569;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .mensaje { 
+            background: #eff6ff; 
+            border-left: 6px solid #2563eb; 
+            padding: 25px; 
+            border-radius: 6px; 
+            margin-bottom: 40px; 
+        }
+        .mensaje-title { 
+            font-weight: 700; 
+            color: #1d4ed8; 
+            text-transform: uppercase; 
+            font-size: 0.9em; 
+            letter-spacing: 1px; 
+            margin-bottom: 8px; 
+        }
+        .mensaje-text { 
+            font-size: 1.2em; 
+            color: #1e3a8a; 
+            line-height: 1.4; 
+        }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 30px; 
+        }
+        .card { 
+            background: white; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); 
+            display: flex; 
+            flex-direction: column; 
+            border: 1px solid #e2e8f0;
+        }
+        .card-header { 
+            padding: 15px 20px; 
+            font-weight: 700; 
+            color: white; 
+            font-size: 1.05em; 
+        }
+        
+        .bg-blue-dark { background: #1e3a8a; }
+        .bg-blue-medium { background: #1d4ed8; }
+        .bg-blue-light { background: #2563eb; }
+        .bg-blue-slate { background: #334155; }
+        
+        .card-body { 
+            padding: 25px; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .pregunta { 
+            font-weight: 700; 
+            color: #0f172a; 
+            margin-bottom: 8px; 
+            font-size: 1em; 
+        }
+        .justificacion { 
+            font-size: 0.95em; 
+            color: #64748b; 
+            margin-bottom: 25px; 
+            line-height: 1.5; 
+        }
+        .img-container { 
+            flex-grow: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Análisis de Competitividad: SECOP II</h1>
+        <h3>Concentración del Presupuesto Público y Riesgos de Pluralidad</h3>
+    </div>
+    
+    <div class="grid-context">
+        <div class="card-context">
+            <h4>Descripción del Dataset</h4>
+            <p><strong>Fuente:</strong> Agencia Nacional de Contratación Pública (Colombia Compra Eficiente). El análisis se realizó sobre el universo completo de contratos electrónicos de SECOP II, con más de 5.6 millones de registros procesados y variables asociadas a competitividad y modalidad contractual.</p>
+        </div>
+        <div class="card-context">
+            <h4>Problema Analítico</h4>
+            <p>Una parte significativa del presupuesto público se adjudica en procesos con escasa o nula pluralidad de oferentes. Este análisis identifica patrones de baja competitividad en la contratación estatal, permitiendo detectar entidades, modalidades y regiones donde la concentración contractual puede representar mayores riesgos para la transparencia y la eficiencia del gasto público.</p>
+        </div>
+        <div class="card-context">
+            <h4>Objetivo del Análisis</h4>
+            <p>Diseñado para facilitar la labor de <strong>Veeduría Ciudadana</strong>. Provee hallazgos estructurados que permiten identificar y focalizar auditorías en las entidades y regiones con mayor concentración de contratos sin pluralidad de oferentes.</p>
+        </div>
+    </div>
+    
+    <div class="mensaje">
+        <div class="mensaje-title">Hallazgo Principal</div>
+        <div class="mensaje-text">La contratación directa y los procesos de oferente único concentran una alta proporción del presupuesto público adjudicado, aislando la competencia y consolidando a contratistas específicos como los mayores receptores de fondos.</div>
+    </div>
+    
+    <div class="grid">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-header bg-blue-dark">1. Distribución Geográfica del Presupuesto</div>
+            <div class="card-body">
+                <div class="pregunta">¿Cómo se distribuye geográficamente el presupuesto total contratado?</div>
+                <div class="justificacion">El mapa dimensiona de manera intuitiva el tamaño del mercado de contratación pública a nivel departamental, proporcionando el panorama general necesario antes de identificar áreas de riesgo.</div>
+                <div class="img-container">
+                    <!-- Asegúrate de tener la imagen 'mapa.png' en la misma carpeta -->
+                    <img src="mapa.png" alt="Mapa de Burbujas">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-header bg-blue-medium">2. Modalidades y Nivel de Competencia</div>
+            <div class="card-body">
+                <div class="pregunta">¿Qué modalidades de contratación presentan estructuralmente una menor cantidad de oferentes?</div>
+                <div class="justificacion">Al estandarizar las barras al 100%, se compara visualmente la proporción interna de competencia (Baja vs Alta) entre modalidades. Evidencia que la Contratación Directa opera como una anomalía de pluralidad.</div>
+                <div class="img-container">
+                    <!-- Asegúrate de tener la imagen 'modalidades.png' en la misma carpeta -->
+                    <img src="modalidades.png" alt="Gráfico de Barras Apiladas">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-header bg-blue-light">3. Concentración de Proveedores</div>
+            <div class="card-body">
+                <div class="pregunta">¿Cuáles proveedores absorben la mayor cantidad de dinero en escenarios de baja competencia?</div>
+                <div class="justificacion">El tamaño de las áreas representa la magnitud del presupuesto adjudicado. Facilita la identificación inmediata de los principales contratistas en entornos sin pluralidad, priorizando su seguimiento.</div>
+                <div class="img-container">
+                    <!-- Asegúrate de tener la imagen 'proveedores.png' en la misma carpeta -->
+                    <img src="proveedores.png" alt="Treemap de Proveedores">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-header bg-blue-slate">4. Entidades Estatales Prioritarias</div>
+            <div class="card-body">
+                <div class="pregunta">¿Qué entidades concentran los mayores montos bajo alertas de baja competencia?</div>
+                <div class="justificacion">El ordenamiento descendente actúa como una lista de prioridades o "ruta de auditoría" directa para el control social, filtrando el ruido visual y enfocando la atención en las instituciones más críticas.</div>
+                <div class="img-container">
+                    <!-- Asegúrate de tener la imagen 'entidades.png' en la misma carpeta -->
+                    <img src="entidades.png" alt="Gráfico de Barras Entidades">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
