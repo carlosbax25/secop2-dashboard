@@ -337,7 +337,7 @@ app.layout = html.Div(style={
         ]),
         html.Div(id='kpi-cobertura', n_clicks=0, style=KPI_STYLE(), children=[
             html.P("Cobertura", style={'margin': '0', 'fontSize': '9px', 'color': GRIS_MEDIO}),
-            html.P(f"{df['departamento_entidad'].nunique()} Dptos + Bogotá D.C.",
+            html.P("32 Dptos + Bogotá D.C.",
                    style={'margin': '2px 0 0', 'fontSize': '14px', 'fontWeight': '700', 'color': GRIS_OSCURO}),
             html.P("▸ Clic para detalle", style={'margin': '2px 0 0', 'fontSize': '8px', 'color': GRIS_CLARO}),
         ]),
