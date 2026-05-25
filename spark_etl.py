@@ -17,8 +17,8 @@ def ingest_and_process(parquet_path):
     En modo Render usa Pandas directo. En local usa PySpark.
     """
     if RENDER_MODE:
-        print("  [Pandas] Modo Render — leyendo parquet directo...")
-        df = pd.read_parquet(parquet_path)
+        print("  [Pandas] Modo Render — leyendo CSV directo...")
+        df = pd.read_csv(parquet_path.replace('.parquet', '.csv'), low_memory=False)
     else:
         print("  [Spark] Modo local — procesamiento distribuido...")
         from pyspark.sql import SparkSession
