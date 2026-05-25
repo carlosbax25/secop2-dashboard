@@ -18,6 +18,8 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 import os
+import json as json_lib
+import unicodedata
 from spark_etl import ingest_and_process
 
 # =============================================================================
@@ -72,9 +74,6 @@ ALERTA_FONDO = '#FBE9E7'
 # =============================================================================
 # VIZ 1 — SITUACIÓN: Mapa de burbujas Top 5 (Variables de Bertin: Tamaño + Valor/Tono azul)
 # =============================================================================
-import json as json_lib
-import unicodedata
-
 GEOJSON_PATH = os.path.join(os.path.dirname(__file__), 'data', 'depto.json')
 
 # Coordenadas centroides de departamentos colombianos
