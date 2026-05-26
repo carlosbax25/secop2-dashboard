@@ -62,6 +62,8 @@ app.layout = html.Div(style={'display': 'flex', 'minHeight': '100vh', 'fontFamil
     # Store global para anios seleccionados
     dcc.Store(id='store-anios', data=None),
 
+    # Responsive CSS en assets/style.css
+
     # SIDEBAR
     html.Div(style={
         'width': '210px', 'minWidth': '210px', 'padding': '24px 16px',
@@ -203,8 +205,9 @@ def build_dashboard_content(df_f):
                 html.P("32 Dptos + Bogota D.C.", style={'margin': '2px 0 0', 'fontSize': '14px', 'fontWeight': '700', 'color': GRIS_OSCURO}),
             ]),
             html.Div(style=KPI_STYLE(RESALTADO, ALERTA_FONDO), children=[
-                html.P("Sin Competencia", style={'margin': '0', 'fontSize': '9px', 'color': GRIS_MEDIO}),
+                html.P("Contratos Sin Competencia", style={'margin': '0', 'fontSize': '9px', 'color': RESALTADO, 'fontWeight': '700', 'textTransform': 'uppercase', 'letterSpacing': '0.5px'}),
                 html.P(f"{kpis['pct_sin_comp']}%", style={'margin': '2px 0 0', 'fontSize': '16px', 'fontWeight': '700', 'color': RESALTADO}),
+                html.P("de procesos adjudicados", style={'margin': '2px 0 0', 'fontSize': '9px', 'color': '#b91c1c', 'fontWeight': '600'}),
             ]),
         ]),
         # Graficas

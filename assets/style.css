@@ -1,0 +1,39 @@
+/* Responsive */
+@media (max-width: 900px) {
+    #sidebar { width: 170px !important; min-width: 170px !important; padding: 16px 10px !important; }
+    #page-content { margin-left: 180px !important; padding: 15px !important; }
+}
+@media (max-width: 600px) {
+    #sidebar { display: none !important; }
+    #page-content { margin-left: 0 !important; padding: 10px !important; }
+}
+
+/* Dropdown dark theme fix */
+.Select-control { background-color: #1e3a8a !important; border-color: #3b82f6 !important; }
+.Select-value-label { color: white !important; }
+.Select-placeholder { color: #93C5FD !important; }
+
+/* Storytelling animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    50% { box-shadow: 0 10px 35px rgba(59,130,246,0.15); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+.story-animate-1 { animation: fadeInUp 0.6s ease-out both; }
+.story-animate-2 { animation: fadeInUp 0.6s ease-out 0.15s both; }
+.story-animate-3 { animation: fadeInUp 0.6s ease-out 0.3s both; }
+.story-animate-4 { animation: slideInLeft 0.8s ease-out 0.5s both; }
+.story-header { animation: fadeInUp 0.5s ease-out both; }
+.pulse-card { animation: pulseGlow 3s ease-in-out infinite; }
+
+@media (max-width: 768px) {
+    .story-grid { grid-template-columns: 1fr !important; }
+    .story-grid > div { grid-column: span 1 !important; }
+}

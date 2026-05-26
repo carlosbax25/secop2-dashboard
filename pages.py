@@ -31,10 +31,18 @@ def build_storytelling(df):
     mega_contratista = top_prov.index[0] if len(top_prov) > 0 else "N/A"
     mega_valor = top_prov.iloc[0] if len(top_prov) > 0 else 0
 
-    # Top entidad en baja competencia
-    top_ent = df_baja.groupby('entidad')['valor_total_adjudicacion'].sum().sort_values(ascending=False)
+    # Top entidad en baja competencia (con contexto enriquecido)
+    top_ent = df_baja.groupby('entidad').agg(
+        valor=('valor_total_adjudicacion', 'sum'),
+        n_contratos=('valor_total_adjudicacion', 'count'),
+        n_proveedores=('nombre_del_proveedor', 'nunique'),
+    ).sort_values('valor', ascending=False)
     foco_entidad = top_ent.index[0] if len(top_ent) > 0 else "N/A"
-    foco_valor = top_ent.iloc[0] if len(top_ent) > 0 else 0
+    foco_valor = top_ent.iloc[0]['valor'] if len(top_ent) > 0 else 0
+    foco_contratos = int(top_ent.iloc[0]['n_contratos']) if len(top_ent) > 0 else 0
+    foco_proveedores = int(top_ent.iloc[0]['n_proveedores']) if len(top_ent) > 0 else 0
+    # % que representa del total de baja competencia
+    pct_foco = (foco_valor / valor_baja * 100) if valor_baja > 0 else 0
 
     # Estilos inline
     card_style = {
@@ -44,65 +52,87 @@ def build_storytelling(df):
         'borderBottom': '1px solid #f1f5f9',
     }
 
-    return html.Div(style={'background': '#f8fafc', 'padding': '40px', 'minHeight': '90vh'}, children=[
+    # Animaciones via assets/style.css (clases: story-animate-1, pulse-card, etc.)
+
+    return html.Div(style={'background': '#f8fafc', 'padding': '30px 20px', 'minHeight': '90vh'}, children=[
         html.Div(style={'maxWidth': '1000px', 'margin': '0 auto'}, children=[
             # Header
-            html.Div(style={'textAlign': 'center', 'marginBottom': '50px', 'borderBottom': '1px solid #e2e8f0', 'paddingBottom': '30px'}, children=[
+            html.Div(className='story-header', style={'textAlign': 'center', 'marginBottom': '40px', 'borderBottom': '1px solid #e2e8f0', 'paddingBottom': '25px'}, children=[
                 html.H1("Alerta de Pluralidad: SECOP II", style={
-                    'fontSize': '2.5rem', 'fontWeight': '900', 'margin': '0',
+                    'fontSize': '2.2rem', 'fontWeight': '900', 'margin': '0',
                     'color': '#1d4ed8', 'letterSpacing': '-1px',
                 }),
-                html.H3("Análisis del déficit de competencia en la adjudicación de recursos públicos", style={
-                    'color': '#64748b', 'fontWeight': '400', 'fontSize': '1.1rem', 'marginTop': '15px',
+                html.H3("Analisis del deficit de competencia en la adjudicacion de recursos publicos", style={
+                    'color': '#64748b', 'fontWeight': '400', 'fontSize': '1rem', 'marginTop': '12px',
                 }),
             ]),
 
             # KPIs Grid
-            html.Div(style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '30px', 'marginBottom': '30px'}, children=[
-                # KPI 1: Exposición Financiera
-                html.Div(style=card_style, children=[
-                    html.P("EXPOSICIÓN FINANCIERA", style={'fontSize': '0.8rem', 'textTransform': 'uppercase', 'letterSpacing': '1.5px', 'color': '#64748b', 'fontWeight': '600', 'marginBottom': '15px'}),
-                    html.P(fmt_billones(valor_baja), style={'fontSize': '2.8rem', 'fontWeight': '900', 'color': '#0f172a', 'lineHeight': '1', 'marginBottom': '10px'}),
+            html.Div(className='story-grid', style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '20px', 'marginBottom': '20px'}, children=[
+                # KPI 1
+                html.Div(className='story-animate-1', style=card_style, children=[
+                    html.P("EXPOSICION FINANCIERA", style={'fontSize': '0.75rem', 'textTransform': 'uppercase', 'letterSpacing': '1.5px', 'color': '#64748b', 'fontWeight': '600', 'marginBottom': '12px'}),
+                    html.P(fmt_billones(valor_baja), className='story-kpi-value', style={'fontSize': '2.5rem', 'fontWeight': '900', 'color': '#0f172a', 'lineHeight': '1', 'marginBottom': '8px'}),
                     html.P([
                         "Adjudicados a procesos con ",
-                        html.Span("1 o ningún oferente competitivo", style={'color': '#2563eb', 'fontWeight': '700'}),
+                        html.Span("1 o ningun oferente competitivo", style={'color': '#2563eb', 'fontWeight': '700'}),
                         "."
-                    ], style={'fontSize': '1rem', 'color': '#475569', 'lineHeight': '1.5'}),
+                    ], style={'fontSize': '0.9rem', 'color': '#475569', 'lineHeight': '1.5'}),
                 ]),
 
-                # KPI 2: Déficit de Competencia
-                html.Div(style=card_style, children=[
-                    html.P("DÉFICIT DE COMPETENCIA", style={'fontSize': '0.8rem', 'textTransform': 'uppercase', 'letterSpacing': '1.5px', 'color': '#64748b', 'fontWeight': '600', 'marginBottom': '15px'}),
-                    html.P(f"{pct_baja:.1f}%", style={'fontSize': '2.8rem', 'fontWeight': '900', 'color': '#0f172a', 'lineHeight': '1', 'marginBottom': '10px'}),
-                    html.P("Del presupuesto total analizado se asignó sin garantizar pluralidad de mercado.", style={'fontSize': '1rem', 'color': '#475569', 'lineHeight': '1.5'}),
+                # KPI 2
+                html.Div(className='story-animate-2', style=card_style, children=[
+                    html.P("DEFICIT DE COMPETENCIA", style={'fontSize': '0.75rem', 'textTransform': 'uppercase', 'letterSpacing': '1.5px', 'color': '#64748b', 'fontWeight': '600', 'marginBottom': '12px'}),
+                    html.P(f"{pct_baja:.1f}%", className='story-kpi-value', style={'fontSize': '2.5rem', 'fontWeight': '900', 'color': '#0f172a', 'lineHeight': '1', 'marginBottom': '8px'}),
+                    html.P("Del presupuesto total analizado se asigno sin garantizar pluralidad de mercado.", style={'fontSize': '0.9rem', 'color': '#475569', 'lineHeight': '1.5'}),
                 ]),
 
-                # KPI 3: Mega-Contratista (span 2 columnas)
-                html.Div(style={**card_style, 'gridColumn': 'span 2', 'borderLeftColor': '#60a5fa'}, children=[
-                    html.P("MEGA-CONTRATISTA SIN COMPETENCIA", style={'fontSize': '0.8rem', 'textTransform': 'uppercase', 'letterSpacing': '1.5px', 'color': '#64748b', 'fontWeight': '600', 'marginBottom': '15px'}),
-                    html.P(mega_contratista, style={'fontSize': '2rem', 'fontWeight': '900', 'color': '#0f172a', 'lineHeight': '1.2', 'marginBottom': '10px'}),
+                # KPI 3: Mega-Contratista
+                html.Div(className='story-animate-3 pulse-card', style={**card_style, 'gridColumn': 'span 2', 'borderLeftColor': '#60a5fa'}, children=[
+                    html.P("MEGA-CONTRATISTA SIN COMPETENCIA", style={'fontSize': '0.75rem', 'textTransform': 'uppercase', 'letterSpacing': '1.5px', 'color': '#64748b', 'fontWeight': '600', 'marginBottom': '12px'}),
+                    html.P(mega_contratista, style={'fontSize': '1.6rem', 'fontWeight': '900', 'color': '#0f172a', 'lineHeight': '1.2', 'marginBottom': '8px'}),
                     html.P([
                         "Ha recibido ",
                         html.Span(fmt_billones(mega_valor), style={'color': '#2563eb', 'fontWeight': '700'}),
-                        " en procesos con 1 o ningún oferente. Identificar a los mayores receptores de fondos en estos escenarios es vital para mapear posibles monopolios o direccionamientos."
-                    ], style={'fontSize': '1rem', 'color': '#475569', 'lineHeight': '1.5'}),
+                        " en procesos con 1 o ningun oferente."
+                    ], style={'fontSize': '0.9rem', 'color': '#475569', 'lineHeight': '1.5'}),
                 ]),
 
-                # Target Card (span 2 columnas)
-                html.Div(style={
+                # Target Card
+                html.Div(className='story-animate-4', style={
                     'background': 'linear-gradient(135deg, #1e3a8a, #1d4ed8)',
-                    'borderRadius': '16px', 'padding': '40px', 'textAlign': 'center',
+                    'borderRadius': '16px', 'padding': '35px', 'textAlign': 'center',
                     'gridColumn': 'span 2', 'boxShadow': '0 15px 35px rgba(29, 78, 216, 0.2)',
                 }, children=[
-                    html.P("FOCO DE AUDITORÍA PRIORITARIA (ENTIDAD)", style={'fontSize': '0.9rem', 'textTransform': 'uppercase', 'letterSpacing': '2px', 'color': '#93c5fd', 'fontWeight': '800', 'marginBottom': '15px'}),
-                    html.P(foco_entidad, style={'fontSize': '1.8rem', 'fontWeight': '900', 'color': '#ffffff', 'marginBottom': '10px', 'lineHeight': '1.2'}),
-                    html.P(f"{fmt_billones(foco_valor)} adjudicados sin pluralidad", style={'fontSize': '1.3rem', 'color': '#bfdbfe', 'fontWeight': '600'}),
+                    html.P("FOCO DE AUDITORIA PRIORITARIA (ENTIDAD)", style={'fontSize': '0.8rem', 'textTransform': 'uppercase', 'letterSpacing': '2px', 'color': '#93c5fd', 'fontWeight': '800', 'marginBottom': '12px'}),
+                    html.P(foco_entidad, style={'fontSize': '1.5rem', 'fontWeight': '900', 'color': '#ffffff', 'marginBottom': '16px', 'lineHeight': '1.2'}),
+                    # Metricas accionables
+                    html.Div(style={'display': 'flex', 'justifyContent': 'center', 'gap': '30px', 'marginBottom': '16px'}, children=[
+                        html.Div(style={'textAlign': 'center'}, children=[
+                            html.P(fmt_billones(foco_valor), style={'fontSize': '1.2rem', 'fontWeight': '700', 'color': '#ffffff', 'margin': '0'}),
+                            html.P("adjudicados sin pluralidad", style={'fontSize': '0.75rem', 'color': '#93c5fd', 'margin': '4px 0 0'}),
+                        ]),
+                        html.Div(style={'textAlign': 'center'}, children=[
+                            html.P(f"{foco_contratos}", style={'fontSize': '1.2rem', 'fontWeight': '700', 'color': '#ffffff', 'margin': '0'}),
+                            html.P("contratos en alerta", style={'fontSize': '0.75rem', 'color': '#93c5fd', 'margin': '4px 0 0'}),
+                        ]),
+                        html.Div(style={'textAlign': 'center'}, children=[
+                            html.P(f"{foco_proveedores}", style={'fontSize': '1.2rem', 'fontWeight': '700', 'color': '#ffffff', 'margin': '0'}),
+                            html.P("proveedores beneficiados", style={'fontSize': '0.75rem', 'color': '#93c5fd', 'margin': '4px 0 0'}),
+                        ]),
+                        html.Div(style={'textAlign': 'center'}, children=[
+                            html.P(f"{pct_foco:.1f}%", style={'fontSize': '1.2rem', 'fontWeight': '700', 'color': '#fbbf24', 'margin': '0'}),
+                            html.P("del gasto sin competencia", style={'fontSize': '0.75rem', 'color': '#93c5fd', 'margin': '4px 0 0'}),
+                        ]),
+                    ]),
+                    html.P("Recomendacion: Iniciar revision de procesos contractuales y verificar justificaciones de contratacion directa.",
+                           style={'fontSize': '0.8rem', 'color': '#bfdbfe', 'fontStyle': 'italic', 'margin': '0'}),
                 ]),
             ]),
 
             # Footer
-            html.P("Este reporte focaliza la exposición de la contratación estatal ante escenarios de bajo concurso. Diseñado para control interno y veeduría especializada.",
-                   style={'textAlign': 'center', 'color': '#94a3b8', 'marginTop': '40px', 'fontSize': '0.9rem'}),
+            html.P("Este reporte focaliza la exposicion de la contratacion estatal ante escenarios de bajo concurso. Disenado para control interno y veeduria especializada.",
+                   style={'textAlign': 'center', 'color': '#94a3b8', 'marginTop': '30px', 'fontSize': '0.85rem'}),
         ]),
     ])
 
